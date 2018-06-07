@@ -3,11 +3,6 @@ import pololu.pololu as pololu
 if __name__ == '__main__':
 
     pR = pololu.Pololu(pololu.Pins(enable=11, direction=15, step=13))
-    pL = pololu.Pololu(pololu.Pins(enable=29, direction=33, step=31))
-
-    pL.speed = 16
-    pL.stepsleft(400)
-    pL.stepsright(400)
 
     pR.speed = 16
     pR.stepsleft(400)
@@ -15,9 +10,7 @@ if __name__ == '__main__':
 
     print "integer steps 200 = 360 dgs"
 
-    pL.goto(200)
     pR.goto(200)
-    pL.goto(0)
     pR.goto(0)
 
     # print "float means angle dgs"
