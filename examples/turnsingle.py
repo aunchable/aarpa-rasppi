@@ -10,7 +10,7 @@ if __name__ == '__main__':
 
     print "integer steps 200 = 360 dgs"
 
-    pR.goto(200)
+    #pR.goto(200)
     # pR.goto(0)
     #
     # print "float means angle dgs"
