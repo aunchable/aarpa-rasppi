@@ -1,7 +1,8 @@
 import pololu.pololu as pololu
 from multiprocessing import Pool
 
-def run(pol, speed, steps):
+def run(tup):
+    pol, speed, steps = tup
     pol.speed = speed
     if steps >= 0:
         pol.stepsleft(steps)
