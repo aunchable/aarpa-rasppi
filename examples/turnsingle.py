@@ -2,7 +2,7 @@ import pololu.pololu as pololu
 
 if __name__ == '__main__':
 
-    pR = pololu.Pololu(pololu.Pins(enable=11, direction=15, step=13))
+    pR = pololu.Pololu(pololu.Pins(enable=17, direction=22, step=27))
 
     pR.speed = 16
     pR.stepsleft(400)
