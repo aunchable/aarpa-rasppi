@@ -4,7 +4,7 @@ if __name__ == '__main__':
 
     pR = pololu.Pololu(pololu.Pins(enable=17, direction=22, step=27))
 
-    pR.speed = 16
+    pR.speed = 4
     pR.stepsleft(400)
     pR.stepsright(400)
 
@@ -13,8 +13,8 @@ if __name__ == '__main__':
     pR.goto(200)
     pR.goto(0)
 
-    # print "float means angle dgs"
-    #
-    # for i in range(9):
-    #     p.goto(i*45.0)
-    #     p.goto(0)
+    print "float means angle dgs"
+
+    for i in range(9):
+        p.goto(i*45.0)
+        p.goto(0)
