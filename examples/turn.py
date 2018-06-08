@@ -13,7 +13,7 @@ if __name__ == '__main__':
 
     pR = pololu.Pololu(pololu.Pins(enable=17, direction=22, step=27))
     pL = pololu.Pololu(pololu.Pins(enable=5, direction=13, step=6))
-    pZ = pololu.Pololu(pololu.Pins(enable=25, direction=23, step=24))
+    pZ = pololu.Pololu(pololu.Pins(enable=25, direction=24, step=23))
 
 
     p = Pool()
