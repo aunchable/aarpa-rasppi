@@ -14,7 +14,7 @@ def run(tup):
 
 class MotorController():
 
-    def __init__(pinsR, pinsL, pinsZ, diameter):
+    def __init__(self, pinsR, pinsL, pinsZ, diameter):
         self.x, self.y, self.z = 0, 0, 0
         pRe, pRd, pRs = pinsR
         pLe, pLd, pLs = pinsL
@@ -30,27 +30,35 @@ class MotorController():
         self.p = Pool()
         self.dm = diameter
 
-    def move(x, y):
+    def move(self, x, y):
         dx = x - self.x
         dy = y - self.y
-        cL = 200 * (dx + dy) / (np.pi * self.dm)
-        cR = 200 * (-dx + dy) / (np.pi * self.dm)
-        commandL = (self.pL, cL / 4, cL)
-        commandR = (self.pR, cR / 4, -cR)  # Negative because counterclockwise
-        p.map(run, [commandL, commandR])
+        cL = 200.0 * (dx + dy) / (np.pi * self.dm)
+        cR = 200.0 * (-dx + dy) / (np.pi * self.dm)
+	maxspeed = 32.0
+	if np.absolute(cL) >= np.absolute(cR):
+            cLspeed = maxspeed
+            cRspeed = np.absolute(cR) * maxspeed / np.absolute(cL)
+        else:
+            cLspeed = np.absolute(cL) * maxspeed / np.absolute(cR)
+            cRspeed = maxspeed
+	print(cL, cR, cLspeed, cRspeed)
+	commandL = (self.pL, max(1,int(cLspeed)), int(cL))
+	commandR = (self.pR, max(1,int(cRspeed)), int(-cR))  # Negative because counterclockwise
+        self.p.map(run, [commandL, commandR])
         self.x, self.y = x, y
 
-    def stroke(x, y):
+    def stroke(self, x, y):
         self.move_down()
         self.move(x, y)
         self.move_up()
 
-    def move_up():
-        run(self.pZ, 32, 1000)
+    def move_up(self):
+        run((self.pZ, 32, 1000))
         self.z = 0
 
-    def move_down():
-        run(self.pZ, 32, -1000)
+    def move_down(self):
+        run((self.pZ, 32, -1000))
         self.z = 1
 
 
@@ -61,3 +69,5 @@ if __name__ == '__main__':
     mc.move_up()
     mc.move(2,2)
     mc.stroke(4,3)
+    mc.move(0,0)
+    mc.move_down()

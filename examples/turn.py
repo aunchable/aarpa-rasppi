@@ -24,8 +24,8 @@ if __name__ == '__main__':
     motors = [(pR,16,-200), (pL,16,200)]
     p.map(run, motors)
 
-    run((pZ,16,200))
-    run((pZ,16,-200))
+    run((pZ,32,200))
+    run((pZ,32,-200))
 
     # Left is clockwise, right is counterclockwise
     print "integer steps 200 = 360 dgs"
