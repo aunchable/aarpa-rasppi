@@ -80,8 +80,23 @@ def draw_square(mc):
     mc.move_up()
     mc.move(2,0)
     mc.stroke(2,1)
+
+    mc.move(0,0)
+    mc.move_down()
+    mc.move_up()
+    mc.move(2,1)
     mc.stroke(3,1)
+
+    mc.move(0,0)
+    mc.move_down()
+    mc.move_up()
+    mc.move(3,1)
     mc.stroke(3,0)
+
+    mc.move(0,0)
+    mc.move_down()
+    mc.move_up()
+    mc.move(3,0)
     mc.stroke(2,0)
     mc.move(0,0)
 
