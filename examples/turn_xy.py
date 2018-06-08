@@ -48,7 +48,7 @@ class MotorController():
         print(cL, cR, cLspeed, cRspeed)
         commandL = (self.pL, max(1,cLspeed), int(cL))
         commandR = (self.pR, max(1,cRspeed), int(-cR))  # Negative because counterclockwise
-        #self.p.map(run, [commandL, commandR])
+        self.p.map(run, [commandL, commandR])
 
         actcL = np.sign(cL) * cLspeed * time
         actcR = np.sign(cR) * cRspeed * time
@@ -80,7 +80,7 @@ if __name__ == '__main__':
     mc = MotorController((17, 22, 27), (5, 13, 6), (25, 24, 23), 0.475)
 
     mc.move_up()
-    mc.move(1,1)
-    mc.stroke(1.5,1)
+    mc.move(2,2)
+    mc.stroke(4,3)
     mc.move(0,0)
     mc.move_down()
