@@ -35,18 +35,31 @@ class MotorController():
         dy = y - self.y
         cL = 200.0 * (dx + dy) / (np.pi * self.dm)
         cR = 200.0 * (-dx + dy) / (np.pi * self.dm)
-	maxspeed = 32.0
-	if np.absolute(cL) >= np.absolute(cR):
-            cLspeed = maxspeed
-            cRspeed = np.absolute(cR) * maxspeed / np.absolute(cL)
+        maxspeed = 32.0
+        if np.absolute(cL) >= np.absolute(cR):
+            time = np.absolute(cL) / maxspeed
+            cLspeed = int(maxspeed)
+            cRspeed = int(np.absolute(cR) * maxspeed / np.absolute(cL))
         else:
-            cLspeed = np.absolute(cL) * maxspeed / np.absolute(cR)
-            cRspeed = maxspeed
-	print(cL, cR, cLspeed, cRspeed)
-	commandL = (self.pL, max(1,int(cLspeed)), int(cL))
-	commandR = (self.pR, max(1,int(cRspeed)), int(-cR))  # Negative because counterclockwise
-        self.p.map(run, [commandL, commandR])
-        self.x, self.y = x, y
+            time = np.absolute(cR) / maxspeed
+            cLspeed = int(np.absolute(cL) * maxspeed / np.absolute(cR))
+            cRspeed = int(maxspeed)
+
+        print(cL, cR, cLspeed, cRspeed)
+        commandL = (self.pL, max(1,cLspeed), int(cL))
+        commandR = (self.pR, max(1,cRspeed), int(-cR))  # Negative because counterclockwise
+        #self.p.map(run, [commandL, commandR])
+
+        actcL = np.sign(cL) * cLspeed * time
+        actcR = np.sign(cR) * cRspeed * time
+        actdx = (actcL - actcR) * (np.pi * self.dm) / (200.0 * 2.0)
+        actdy = (actcL + actcR) * (np.pi * self.dm) / (200.0 * 2.0)
+        print(actcL, actcR, actdx, actdy)
+        print(self.x, self.y)
+        self.x += actdx
+        self.y += actdy
+        print(self.x, self.y)
+
 
     def stroke(self, x, y):
         self.move_down()
@@ -67,7 +80,7 @@ if __name__ == '__main__':
     mc = MotorController((17, 22, 27), (5, 13, 6), (25, 24, 23), 0.475)
 
     mc.move_up()
-    mc.move(2,2)
-    mc.stroke(4,3)
+    mc.move(1,1)
+    mc.stroke(1.5,1)
     mc.move(0,0)
     mc.move_down()
