@@ -14,8 +14,13 @@ if __name__ == '__main__':
     pR = pololu.Pololu(pololu.Pins(enable=17, direction=22, step=27))
     pL = pololu.Pololu(pololu.Pins(enable=5, direction=13, step=6))
 
-    motors = [(pR,16,200), (pL,16,-200)]
+
     p = Pool()
+
+    motors = [(pR,16,200), (pL,16,-200)]
+    p.map(run, motors)
+
+    motors = [(pR,16,-200), (pL,16,200)]
     p.map(run, motors)
 
     # Left is clockwise, right is counterclockwise
