@@ -67,20 +67,26 @@ class MotorController():
         self.move_up()
 
     def move_up(self):
-        run((self.pZ, 32, 1000))
+        run((self.pZ, 32, 1600))
         self.z = 0
 
     def move_down(self):
-        run((self.pZ, 32, -1000))
+        run((self.pZ, 32, -1600))
         self.z = 1
 
+
+def draw_square(mc):
+    mc.move_down()
+    mc.move_up()
+    mc.move(2,0)
+    mc.stroke(2,1)
+    mc.stroke(3,1)
+    mc.stroke(3,0)
+    mc.stroke(2,0)
+    mc.move(0,0)
 
 if __name__ == '__main__':
 
     mc = MotorController((17, 22, 27), (5, 13, 6), (25, 24, 23), 0.475)
 
-    mc.move_up()
-    mc.move(1,1)
-    mc.stroke(1.5,1)
-    mc.move(0,0)
-    mc.move_down()
+    draw_square(mc)
